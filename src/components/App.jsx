@@ -18,7 +18,7 @@ class App extends React.Component {
   }
   
   handleSearch(options) {
-    searchYouTube(options, (data) => {
+    debouncedSearch(options, (data) => {
       this.setState({
         videoList: data.items,
         videoPlayer: data.items[0]
