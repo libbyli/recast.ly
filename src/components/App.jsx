@@ -24,6 +24,15 @@ class App extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
   
+  componentDidMount() {
+    this.props.searchYouTube({query: 'cute dogs', max: 5, key: YOUTUBE_API_KEY}, (data) => {
+      this.setState({
+        videoList: data.items,
+        videoPlayer: data.items[0]
+      });
+    });
+  }
+  
   handleClick(video) {
     this.setState({
       videoPlayer: video
@@ -38,16 +47,6 @@ class App extends React.Component {
       });
     });
   }
-  
-  componentDidMount() {
-    this.props.searchYouTube({query: 'cute dogs', max: 5, key: YOUTUBE_API_KEY}, (data) => {
-      this.setState({
-        videoList: data.items,
-        videoPlayer: data.items[0]
-      });
-    });
-  }
-  
   
   render () {
     return (
