@@ -3,8 +3,21 @@ class App extends React.Component {
     super(props);
     
     this.state = {
-      videoList: window.exampleVideoData,
-      videoPlayer: window.exampleVideoData[0]
+      videoList: [],
+      videoPlayer: {
+        id: {
+          videoId: null
+        },
+        snippet: {
+          title: null,
+          description: null,
+          thumbnails: {
+            default: {
+              url: null
+            }
+          }
+        }
+      }
     };
     
     this.handleClick = this.handleClick.bind(this);
@@ -27,13 +40,14 @@ class App extends React.Component {
   }
   
   componentDidMount() {
-    searchYouTube({query: 'cute dogs', max: 5, key: YOUTUBE_API_KEY}, (data) => {
+    this.props.searchYouTube({query: 'cute dogs', max: 5, key: YOUTUBE_API_KEY}, (data) => {
       this.setState({
         videoList: data.items,
         videoPlayer: data.items[0]
       });
     });
   }
+  
   
   render () {
     return (
