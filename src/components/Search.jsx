@@ -1,6 +1,6 @@
-var Search = () => (
+var Search = (props) => (
   <div className="search-bar form-inline">
-    <input className="form-control" type="text" />
+    <input className="form-control" type="text" onChange={(event) => {props.handleSearch({query: event.target.value, max: 5, key: YOUTUBE_API_KEY});}} />
     <button className="btn hidden-sm-down">
       <span className="glyphicon glyphicon-search"></span>
     </button>

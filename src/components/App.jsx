@@ -1,4 +1,3 @@
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -9,11 +8,30 @@ class App extends React.Component {
     };
     
     this.handleClick = this.handleClick.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
   
-  handleClick (video) {
+  handleClick(video) {
     this.setState({
       videoPlayer: video
+    });
+  }
+  
+  handleSearch(options) {
+    searchYouTube(options, (data) => {
+      this.setState({
+        videoList: data.items,
+        videoPlayer: data.items[0]
+      });
+    });
+  }
+  
+  componentDidMount() {
+    searchYouTube({query: 'cute dogs', max: 5, key: YOUTUBE_API_KEY}, (data) => {
+      this.setState({
+        videoList: data.items,
+        videoPlayer: data.items[0]
+      });
     });
   }
   
@@ -22,7 +40,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <Search />
+            <Search handleSearch={this.handleSearch} />
           </div>
         </nav>
         <div className="row">
